@@ -1,0 +1,34 @@
+version: '3'
+
+networks:
+  pdaret_network:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.20.0.0/24
+
+services:
+  svc-a:
+    hostname: svc-a
+    container_name: svc-a
+    build:
+      context: pkg/a
+      dockerfile: ../../Dockerfile
+    ports:
+      - "5011:5011"
+    networks:
+      bina_network:
+        ipv4_address: 172.20.0.11
+
+  svc-b:
+    hostname: svc-b
+    container_name: svc-b
+    build:
+      context: pkg/b
+      dockerfile: ../../Dockerfile
+    ports:
+      - "5012:5012"
+    networks:
+      bina_network:
+        ipv4_address: 172.20.0.12
+    privileged: true
